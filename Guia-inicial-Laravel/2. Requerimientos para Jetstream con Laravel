@@ -1,0 +1,49 @@
+Requerimientos para Jetstream con Laravel
+
+Dentro de los requerimientos de Instalación y configuracion para Proyectos de Laravel son necesarios Node Js y el gestor de paquetes npm
+
+Para ello si durante la instalacion nos dio un error como:
+
+npm warn cleanup Failed to remove some directories [ npm warn cleanup [ npm warn cleanup '\\\\
+
+significa que debemos instalar primero estos paquetes.
+
+Esto es puede ser un problema si estamos utilizando WSL ya que Laravel y composer estan corriendo en el WSL pero no tienen istalado los gestores de paquetes necesarios par aLaravel, por ello debemos instalarlo, 
+
+Primero verificamos si tenemos la instalacion 
+	which node
+
+Si muestra algo como:
+
+/usr/bin/node
+
+perfecto.
+
+Si no muestra nada → no tenemos Node instalado en WSL.
+
+Vamos a instalarlo
+
+sudo apt update
+sudo apt install nodejs npm
+
+O mejor aún (recomendado usar nvm):
+
+curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+luego
+nvm install --lts
+nvm use --lts
+
+
+
+Desde WSL, dentro del proyecto:
+
+rm -rf node_modules
+rm package-lock.json
+
+Instalamos npm 
+npm install
+
+y corremos el entorno de desarrollo
+npm run dev
+
