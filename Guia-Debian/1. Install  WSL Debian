@@ -1,0 +1,89 @@
+1. Requisitos para WSL
+    Activar VT Soporte di virtualización (BioS)
+
+2. En la gtienda de aplicaciones instalar un WSL (Windows Subsystem for Linux)    [Debian - Ubuntu]
+
+3. Crar usuario y contraseña de administraccion
+
+4. Actuaizamos el sistema
+    $ sudo apt update
+    $ sud apt upgrade
+
+5. Instalar persmisos de addministración (Debian)
+    apt install sudo
+
+    nano /etc/sudoers.d/<usuario>
+
+6. otorgo permisos de administraccion
+    <uduasio> ALL=(ALL)ALL
+
+
+7. Respaldo de repositorios de Debian
+    cp /etc/apt/sources.list /etc/apt/sources.list.backup
+
+8. Actualizamos el sistema
+    sudo apt update && sudo apt upgrade
+
+
+9. Instalacion de Utilidades del sistema
+
+    $ sudo apt -y install build-essential checkinstall make automake cmake autoconf git git-core dpkg wget
+
+
+10. Instalar snap y flatpak
+     $ sudo apt -y install snapd
+
+luego ejecutas,
+
+    $ sudo ln -s /var/lib/snapd/snap /snap
+
+y ya queda listo para instalar una app con snap. Más adelante usaremos este gestor.
+
+Instalar Flatpak
+
+    $ sudo apt -y install flatpak
+
+11. Instalar Java
+    $ sudo apt -y install default-jre default-jdk
+
+12. Configurar variables de entorno de JAVA:
+
+Sabemos que es esencial el uso de Java para muchas apps de nuestro equipo. Instalaremos el JRE y el JDK de Java en su última versión.
+
+    $ sudo apt -y install default-jre default-jdk
+
+ahora debes configurar la variable de entorno JAVA_HOME para que las apps la encuentren sin ningún problema. Con el siguiente comando buscas la ruta binaria de java,
+
+    $ sudo update-alternatives --list java
+
+te saldrá algo como lo que muestro abajo,
+
+    /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+
+en el archivo de la siguiente ruta /etc/environment, pegaremos con el comando nano el siguiente código. Abrimos primero el archivo,
+
+    sudo subl /etc/environment
+
+y dentro de este archivo pegamos el código de abajo,
+
+    JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64/"
+
+como puedes darte cuenta del comando anterior omitimos “bin/java”. Guardamos el archivo con “control+o” y salimos con “control+x”.
+
+Ahora puedes de nuevo cargar el archivo en el sistema con el siguiente comando,
+
+    $ source /etc/environment
+
+
+13. Compresión de archivos
+-------------------------
+Jamás podrás prescindir de los siguientes programas para la gestión de compresión de archivos.
+
+    $ sudo apt -y install unace p7zip-full lzip arj mpack lzma lzop unzip zip bzip2 lhasa cabextract lrzip rzip zpaq kgb xz-utils
+
+Tenemos algunas otras herramientas con el siguiente comando:
+
+    $ sudo apt install bzip2 zip unzip unace unace p7zip p7zip-full lzip lhasa arj sharutils mpack lzma lzop cabextract
+
+
+
