@@ -1,0 +1,127 @@
+Proyecto Laravel Inicial
+
+Para trabajar con laravel necesitamos unos requerimientos iniciales.
+
+- Tener intalado php
+
+ Verificación de estar usando PHP 8.2:
+
+	$ php -v
+- Tener instalado composer
+
+Verificar que tienes Composer
+
+Laravel necesita Composer. }
+ $ composer -V
+
+Instalacion
+sudo apt install composer
+
+ Crear el proyecto Laravel
+
+
+	$ composer create-project laravel/laravel nombre-proyecto
+
+Ejemplo:
+
+	$ composer create-project laravel/laravel sistema
+
+
+Se puede vincular con el repositorio remoto (Github/gitlab)
+
+
+Entrar a la carpeta del proyecto creado
+
+3 Configurar permisos (MUY importante en WSL + Apache)
+
+Dentro del proyecto:
+
+sudo chown -R www-data:www-data storage
+sudo chown -R www-data:www-data bootstrap/cache
+sudo chmod -R 775 storage
+sudo chmod -R 775 bootstrap/cache
+
+
+Al no existir el archivo de configuraicon en local se crea
+
+	$ cp env-template .env
+
+4. Configurar el archivo .env
+
+Copia el archivo base:
+
+	$ cp .env.example .env
+
+Genera la key:
+
+	$ php artisan key:generate
+
+Edita el .env:
+
+	$ nano .env
+
+Configura tu base de datos (la que creaste en phpMyAdmin):
+
+DB_CONNECTION=mysql
+
+o inicialmente con SQLite
+
+DB_CONNECTION=sqlite
+
+Si no existe nuestra Bd de SQLite lo creamos:
+
+podemos crearla
+
+touch /database/database.sqlite
+
+Otrogarle permisos de trabajo
+
+chmod 775 database/database.sqlite
+
+
+
+4. Debemos contar con Sqlite instalado, 
+
+Verificamos que tengamos instalado SQLite
+
+php -m | grep sqlite
+
+si no nos muetsra nada lo descargamos e instalamos:
+
+sudo apt update
+sudo apt install php-sqlite3
+
+
+Ejecutar las migraicones de la BD
+
+php artisan migrate
+
+En nuestro caso nos genero un error por no tener la verison correcta:
+
+
+
+
+Solucion de problema
+
+AL tener un WSL con Debian descargo SQLite para php 8.4, lo que debemos hacer es descargar y conectar el paquete de sqlite para php 8.2:
+
+Instalacion del modulo de SQlite para PHP 8.2
+
+sudo apt install php8.2-sqlite3
+
+Habilitamos el paquete con nuestro proyecto
+sudo phpenmod -v 8.2 sqlite3
+sudo phpenmod -v 8.2 pdo_sqlite
+
+VErificamos
+
+php -m | grep sqlite
+
+Ahora ya podemos ejecutar las migraciones
+php artisan migrate
+
+Arrancamos el servidor de Laravel
+php artisan serve
+
+y v funcionalidad en el navegador
+http://localhost:8000/
